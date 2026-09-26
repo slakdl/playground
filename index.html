@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>havn</title>
+<meta name="description" content="A sixteen seat kitchen on the harbour. One menu each evening, written after the boats land.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <div class="row">
+      <span class="label" data-bind="copyright"></span>
+      <nav data-bind="nav-0"></nav>
+      <nav data-bind="nav-1"></nav>
+      <nav data-bind="nav-2"></nav>
+      <nav data-bind="nav-3"></nav>
+    </div>
+    <div class="row">
+      <nav data-bind="sub-0"></nav>
+      <nav data-bind="sub-1"></nav>
+      <span></span>
+      <span></span>
+      <nav data-bind="sub-2"></nav>
+    </div>
+  </header>
+
+  <main>
+    <p class="statement" data-bind="statement"></p>
+
+    <section class="sec" id="menu">
+      <h2 data-bind="menu-heading"></h2>
+      <div class="body" data-bind="menu-body"></div>
+    </section>
+
+    <section class="sec" id="wine">
+      <h2 data-bind="wine-heading"></h2>
+      <div class="body" data-bind="wine-body"></div>
+    </section>
+
+    <section class="sec" id="visit">
+      <h2 data-bind="visit-heading"></h2>
+      <div class="blocks" data-bind="visit-blocks"></div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div data-bind="legal"></div>
+    <div data-bind="foot-0"></div>
+    <span></span>
+    <span></span>
+    <div data-bind="foot-1"></div>
+  </footer>
+
+<script>
+  const $ = (key) => document.querySelector(`[data-bind="${key}"]`);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => (
+    { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]
+  ));
+  const link = (l) => `<a href="${esc(l.href)}">${esc(l.label)}</a>`;
+
+  function render(d) {
+    document.title = d.name.toLowerCase();
+    $("copyright").textContent = d.copyright;
+
+    // The header nav spreads across the grid: one column per link, so the
+    // columns land on the same tracks as the content below them.
+    d.nav.forEach((l, i) => { const n = $(`nav-${i}`); if (n) n.innerHTML = link(l); });
+    d.subnav.forEach((l, i) => { const n = $(`sub-${i}`); if (n) n.innerHTML = link(l); });
+
+    $("statement").textContent = d.statement;
+
+    $("menu-heading").textContent = d.menu.heading;
+    $("menu-body").innerHTML =
+      `<p>${esc(d.menu.note)}</p>` +
+      d.menu.sections.map((s) => `
+        <div class="list">
+          <h3>${esc(s.title)}</h3>
+          <ul>${s.items.map((i) => `<li>${esc(i.name)}</li>`).join("")}</ul>
+        </div>`).join("");
+
+    $("wine-heading").textContent = d.wine.heading;
+    $("wine-body").innerHTML = `<p>${esc(d.wine.note)}</p>`;
+
+    $("visit-heading").textContent = d.visit.heading;
+    $("visit-blocks").innerHTML = d.visit.blocks.map((b) => `
+      <div class="block">
+        <h3>${esc(b.title)}</h3>
+        <p>${b.lines.map(esc).join("<br>")}</p>
+      </div>`).join("");
+
+    $("legal").innerHTML = d.footer.legal.map((l) => `<span>${esc(l)}</span>`).join("");
+    d.footer.links.forEach((l, i) => { const n = $(`foot-${i}`); if (n) n.innerHTML = link(l); });
+  }
+
+  fetch("content/site.json")
+    .then((r) => r.json())
+    .then(render)
+    .catch(() => {
+      document.body.innerHTML =
+        '<p style="font-size:11px">content/site.json could not be loaded — serve this over http, not file://</p>';
+    });
+</script>
+</body>
+</html>

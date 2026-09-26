@@ -1,0 +1,78 @@
+content:
+  - name: site
+    label: Site content
+    type: file
+    path: content/site.json
+    format: json
+    fields:
+      - name: name
+        label: Restaurant name
+        type: string
+      - name: copyright
+        label: Copyright line
+        type: string
+      - name: nav
+        label: Main navigation
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: href, label: Link, type: string }
+      - name: subnav
+        label: Secondary navigation
+        type: object
+        list: true
+        fields:
+          - { name: label, label: Label, type: string }
+          - { name: href, label: Link, type: string }
+      - name: statement
+        label: Opening statement
+        type: text
+      - name: menu
+        label: Menu
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: note, label: Intro note, type: text }
+          - name: sections
+            label: Courses
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Course title, type: string }
+              - name: items
+                label: Dishes
+                type: object
+                list: true
+                fields:
+                  - { name: name, label: Dish, type: string }
+      - name: wine
+        label: Wine
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - { name: note, label: Text, type: text }
+      - name: visit
+        label: Visit
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: blocks
+            label: Blocks
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: lines, label: Lines, type: string, list: true }
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - { name: legal, label: Legal lines, type: string, list: true }
+          - name: links
+            label: Links
+            type: object
+            list: true
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: href, label: Link, type: string }
