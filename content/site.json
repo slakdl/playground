@@ -4,19 +4,19 @@
   "nav": [
     {
       "label": "MENU",
-      "href": "#menu"
+      "href": "/menu.html"
     },
     {
       "label": "WINE",
-      "href": "#wine"
+      "href": "/menu.html#wine"
     },
     {
       "label": "KITCHEN",
-      "href": "#about"
+      "href": "/#about"
     },
     {
       "label": "HOURS",
-      "href": "#visit"
+      "href": "/#visit"
     },
     {
       "label": "BOOK A TABLE",
@@ -37,83 +37,6 @@
       "href": "https://instagram.com"
     }
   ],
-  "statement": "Born from a desire to cook close to the water, HAVN is an interplay of salt, smoke and season. Our background in coastal kitchens led us to a room of sixteen seats and a single hearth. We buy whole fish from day boats, bake our own rye each morning, and let the catch decide the menu. We believe a meal can not only feed the people we gather, but in part, plays a role in reflecting the place it came from.",
-  "menu": {
-    "heading": "MENU",
-    "note": "Four courses, 650 DKK. The kitchen cooks one menu each evening, written after the boats land.",
-    "sections": [
-      {
-        "title": "TO BEGIN",
-        "items": [
-          {
-            "name": "Oysters, green apple, dill oil"
-          },
-          {
-            "name": "Rye, cultured butter, toasted barley"
-          },
-          {
-            "name": "Smoked cod roe, new potato, chive"
-          }
-        ]
-      },
-      {
-        "title": "FROM THE HEARTH",
-        "items": [
-          {
-            "name": "Whole plaice, brown butter, capers"
-          },
-          {
-            "name": "Leeks in ash, hazelnut, aged cheese"
-          },
-          {
-            "name": "Day boat catch, fennel, sea herbs"
-          }
-        ]
-      },
-      {
-        "title": "TO FINISH",
-        "items": [
-          {
-            "name": "Sea buckthorn, buttermilk, honey"
-          },
-          {
-            "name": "Rye ice cream, birch syrup"
-          }
-        ]
-      }
-    ]
-  },
-  "wine": {
-    "heading": "WINE",
-    "note": "A short list of low-intervention bottles from growers we have met. Pairing, five glasses, 450 DKK. Non-alcoholic pairing of ferments and infusions, 300 DKK."
-  },
-  "visit": {
-    "heading": "VISIT",
-    "blocks": [
-      {
-        "title": "ADDRESS",
-        "lines": [
-          "Havnegade 14",
-          "1058 København K"
-        ]
-      },
-      {
-        "title": "HOURS",
-        "lines": [
-          "Wednesday to Saturday",
-          "Seatings at 18:00 and 20:30",
-          "Closed Sunday to Tuesday"
-        ]
-      },
-      {
-        "title": "CONTACT",
-        "lines": [
-          "table@havn.example",
-          "+45 00 00 00 00"
-        ]
-      }
-    ]
-  },
   "footer": {
     "legal": [
       "HAVN SMØRREBRØD & SØN",

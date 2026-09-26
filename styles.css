@@ -28,6 +28,9 @@ a {
 
 a:hover { text-decoration: underline; }
 
+/* the page you are on stays marked */
+nav a.is-current { text-decoration: underline; text-underline-offset: 2px; }
+
 /* ---- shared label type: the small uppercase grotesque ---- */
 .label,
 nav a,

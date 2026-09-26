@@ -1,0 +1,30 @@
+{
+  "statement": "Born from a desire to cook close to the water, HAVN is an interplay of salt, smoke and season. Our background in coastal kitchens led us to a room of sixteen seats and a single hearth. We buy whole fish from day boats, bake our own rye each morning, and let the catch decide the menu. We believe a meal can not only feed the people we gather, but in part, plays a role in reflecting the place it came from.",
+  "visit": {
+    "heading": "VISIT",
+    "blocks": [
+      {
+        "title": "ADDRESS",
+        "lines": [
+          "Havnegade 14",
+          "1058 København K"
+        ]
+      },
+      {
+        "title": "HOURS",
+        "lines": [
+          "Wednesday to Saturday",
+          "Seatings at 18:00 and 20:30",
+          "Closed Sunday to Tuesday"
+        ]
+      },
+      {
+        "title": "CONTACT",
+        "lines": [
+          "table@havn.example",
+          "+45 00 00 00 00"
+        ]
+      }
+    ]
+  }
+}

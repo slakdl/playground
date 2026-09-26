@@ -1,6 +1,6 @@
 content:
   - name: site
-    label: Site content
+    label: Site (shared)
     type: file
     path: content/site.json
     format: json
@@ -25,8 +25,52 @@ content:
         fields:
           - { name: label, label: Label, type: string }
           - { name: href, label: Link, type: string }
+      - name: footer
+        label: Footer
+        type: object
+        fields:
+          - { name: legal, label: Legal lines, type: string, list: true }
+          - name: links
+            label: Links
+            type: object
+            list: true
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: href, label: Link, type: string }
+
+  - name: home
+    label: Page — Home
+    type: file
+    path: content/home.json
+    format: json
+    fields:
       - name: statement
         label: Opening statement
+        type: text
+      - name: visit
+        label: Visit
+        type: object
+        fields:
+          - { name: heading, label: Heading, type: string }
+          - name: blocks
+            label: Blocks
+            type: object
+            list: true
+            fields:
+              - { name: title, label: Title, type: string }
+              - { name: lines, label: Lines, type: string, list: true }
+
+  - name: menu
+    label: Page — Menu
+    type: file
+    path: content/menu.json
+    format: json
+    fields:
+      - name: title
+        label: Page title
+        type: string
+      - name: intro
+        label: Intro statement
         type: text
       - name: menu
         label: Menu
@@ -52,27 +96,3 @@ content:
         fields:
           - { name: heading, label: Heading, type: string }
           - { name: note, label: Text, type: text }
-      - name: visit
-        label: Visit
-        type: object
-        fields:
-          - { name: heading, label: Heading, type: string }
-          - name: blocks
-            label: Blocks
-            type: object
-            list: true
-            fields:
-              - { name: title, label: Title, type: string }
-              - { name: lines, label: Lines, type: string, list: true }
-      - name: footer
-        label: Footer
-        type: object
-        fields:
-          - { name: legal, label: Legal lines, type: string, list: true }
-          - name: links
-            label: Links
-            type: object
-            list: true
-            fields:
-              - { name: label, label: Label, type: string }
-              - { name: href, label: Link, type: string }
