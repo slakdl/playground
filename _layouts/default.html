@@ -1,0 +1,36 @@
+<!doctype html>
+{%- assign s = site.data.site -%}
+<html lang="{{ site.lang }}" class="no-js" data-design="{{ s.design | default: 'v6' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ s.title }}</title>
+  <meta name="description" content="{{ s.description }}">
+  <script>document.documentElement.className='js'</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/dzidra.css' | relative_url }}">
+  {%- capture cfg -%}
+  {
+    "design": {{ s.design | default: 'v6' | jsonify }},
+    "tool": {{ s.colour_tool | default: false | jsonify }},
+    "v6": { "bg": {{ s.colors.background | default: '#faf8f4' | jsonify }}, "text": {{ s.colors.text | default: '#1a1716' | jsonify }} },
+    "bar": {{ s.v1_bar_color | default: '#1D1D1B' | jsonify }},
+    "paper": {{ s.v1_paper_color | default: '#EAE4DA' | jsonify }},
+    "sections": [
+      {%- assign first = true -%}
+      {%- for sec in s.sections %}{% unless sec.show_in == 'v6' %}{% unless first %},{% endunless %}{% assign first = false %}
+      { "id": {{ sec.id | jsonify }}, "label": {{ sec.v1_title | default: sec.nav | jsonify }}, "color": {{ sec.v1_color | default: '#dddddd' | jsonify }} }
+      {%- endunless %}{% endfor %}
+    ]
+  }
+  {%- endcapture %}
+  <script>window.DZ = {{ cfg | strip_newlines }};</script>
+  <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+</head>
+<body>
+{{ content }}
+<script src="{{ '/assets/js/site.js' | relative_url }}"></script>
+</body>
+</html>

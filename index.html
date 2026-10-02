@@ -1,55 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>havn</title>
-<meta name="description" content="A sixteen seat kitchen on the harbour. One menu each evening, written after the boats land.">
-<link rel="stylesheet" href="/styles.css">
-</head>
-<body>
+---
+layout: default
+---
+{%- assign s = site.data.site -%}
+
+<!-- v.6 Minimal -->
+<div class="d6 page">
   <header>
-    <div class="row">
-      <span class="label" data-bind="copyright"></span>
-      <nav data-bind="nav-0"></nav>
-      <nav data-bind="nav-1"></nav>
-      <nav data-bind="nav-2"></nav>
-      <nav data-bind="nav-3"></nav>
+    <div class="corner-logo">
+      <a href="#home" aria-label="{{ s.title }}"><img src="{{ s.logo | relative_url }}" alt="{{ s.title }}"></a>
     </div>
-    <div class="row">
-      <nav data-bind="sub-0"></nav>
-      <nav data-bind="sub-1"></nav>
-      <span></span>
-      <span></span>
-      <nav data-bind="sub-2"></nav>
+    <div class="header-right">
+      <nav aria-label="Main">
+        {%- for sec in s.sections %}{% unless sec.show_in == 'v1' %}
+        <a href="#{{ sec.id }}" data-tab="{{ sec.id }}">{{ sec.nav }}</a>
+        {%- endunless %}{% endfor %}
+      </nav>
+      <div class="meta">
+        {%- for a in s.address %}
+        {% if a.url %}<a href="{{ a.url }}" target="_blank" rel="noopener">{{ a.label }}</a>{% else %}<span>{{ a.label }}</span>{% endif %}
+        {%- endfor %}
+        {%- if s.instagram %}<a href="{{ s.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+        {%- if s.language_label %}<span>{{ s.language_label }}</span>{% endif %}
+      </div>
     </div>
   </header>
 
   <main>
-    <p class="statement" data-bind="statement"></p>
-
-    <section class="sec" id="visit">
-      <h2 data-bind="visit-heading"></h2>
-      <div class="blocks" data-bind="visit-blocks"></div>
+    <section class="panel home" data-panel="home">
+      <img class="big-logo" src="{{ s.logo | relative_url }}" alt="{{ s.title }}">
+      <div class="hours">
+        {%- for h in s.hours %}
+        <span>{{ h.day }}</span><span>{{ h.time }}</span>
+        {%- endfor %}
+      </div>
     </section>
+
+    {%- for sec in s.sections %}{% unless sec.show_in == 'v1' %}
+    <section class="panel" data-panel="{{ sec.id }}">
+      <h1>{{ sec.nav }}</h1>
+      {%- if sec.groups.size > 0 %}
+      <div class="groups" style="max-width:{{ sec.max_width | default: '700px' }}">
+        {%- for g in sec.groups %}
+        <div class="group">
+          {%- if g.title %}<div class="group-title">{{ g.title }}</div>{% endif %}
+          {%- for it in g.items %}
+          <div class="item">
+            {%- if it.href %}<a class="link" href="{{ it.href }}">{{ it.name }}</a>{% else %}<span>{{ it.name }}</span>{% endif %}
+            {%- if it.sub %}<div class="sub">{{ it.sub }}</div>{% endif %}
+          </div>
+          {%- endfor %}
+        </div>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+      {%- if sec.events.size > 0 %}
+      <div class="events">
+        {%- for ev in sec.events %}
+        <div class="event">
+          <span>{{ ev.date }}</span>
+          <div><span class="event-title">{{ ev.title }}</span><span class="sub">{{ ev.desc }}</span></div>
+          <span class="event-time">{{ ev.time }}</span>
+        </div>
+        {%- endfor %}
+      </div>
+      {%- endif %}
+      {%- for p in sec.body %}
+      <p class="body">{{ p }}</p>
+      {%- endfor %}
+    </section>
+    {%- endunless %}{% endfor %}
+  </main>
+</div>
+
+<!-- v.1 Colour bands -->
+<div class="d1">
+  <div class="intro" style="background:var(--paper);color:var(--paper-fg)">
+    <header class="topline">
+      <nav>
+        {%- for sec in s.sections %}{% unless sec.show_in == 'v6' %}
+        <a href="#{{ sec.id }}" data-band-link="{{ sec.id }}">{{ sec.nav }}</a>
+        {%- endunless %}{% endfor %}
+      </nav>
+      {%- if s.language_label %}<div class="lang">{{ s.language_label }}</div>{% endif %}
+    </header>
+    <h1><a href="#home" data-home><img src="{{ s.logo | relative_url }}" alt="{{ s.title }}"></a></h1>
+    <div class="intro-fold"><div class="intro-clip"><div class="intro-row">
+      {%- if s.v1_intro %}<p>{{ s.v1_intro }}</p>{% endif %}
+      <div class="hours">
+        {%- for h in s.hours %}
+        <span>{{ h.day }}</span><span>{{ h.time }}</span>
+        {%- endfor %}
+      </div>
+    </div></div></div>
+  </div>
+
+  <main>
+    {%- for sec in s.sections %}{% unless sec.show_in == 'v6' %}
+    <section class="band" id="band-{{ sec.id }}" data-band="{{ sec.id }}" style="background:var(--band-{{ sec.id }});color:var(--band-{{ sec.id }}-fg)">
+      <div class="band-head" data-band-toggle role="button" tabindex="0" aria-expanded="false">
+        <h2>{{ sec.v1_title | default: sec.nav }}</h2>
+      </div>
+      <div class="band-body"><div class="band-clip"><div class="band-inner">
+        {%- if sec.groups.size > 0 %}
+        <div class="v1-groups">
+          {%- for g in sec.groups %}
+          <div class="v1-group">
+            {%- if g.title %}<div class="v1-group-title">{{ g.title }}</div>{% endif %}
+            {%- for it in g.items %}
+            <div class="v1-item">
+              {%- if it.href %}<a class="link" href="{{ it.href }}">{{ it.name }}</a>{% else %}<span>{{ it.name }}</span>{% endif %}
+              {%- if it.sub %}<div class="v1-sub">{{ it.sub }}</div>{% endif %}
+            </div>
+            {%- endfor %}
+          </div>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        {%- if sec.events.size > 0 %}
+        <div class="v1-events">
+          {%- for ev in sec.events %}
+          <div class="v1-event"><span>{{ ev.date }}</span><span>{{ ev.title }}<span class="v1-sub">{{ ev.desc }}</span></span><span class="v1-time">{{ ev.time }}</span></div>
+          {%- endfor %}
+        </div>
+        {%- endif %}
+        <div class="band-foot">
+          <div class="band-text">{% for p in sec.body %}<p>{{ p }}</p>{% endfor %}</div>
+          {%- if sec.v1_cta_label %}<a class="cta" href="{{ sec.v1_cta_url }}" target="_blank" rel="noopener">{{ sec.v1_cta_label }} →</a>{% endif %}
+        </div>
+      </div></div></div>
+    </section>
+    {%- endunless %}{% endfor %}
   </main>
 
-  <footer class="foot">
-    <div data-bind="legal"></div>
-    <div data-bind="foot-0"></div>
-    <span></span>
-    <span></span>
-    <div data-bind="foot-1"></div>
+  <footer class="bar bottom">
+    <div class="foot-col">
+      <div class="v1-group-title">opening hours</div>
+      {%- for h in s.hours %}<div>{{ h.day }} {{ h.time }}</div>{% endfor %}
+    </div>
+    <div class="foot-col">
+      <div class="v1-group-title">address</div>
+      <a href="{{ s.address[0].url }}" target="_blank" rel="noopener">{% for x in s.address %}{{ x.label }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</a>
+      {%- if s.instagram %}<a href="{{ s.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
+    </div>
+    <div class="foot-col">
+      <div class="v1-group-title">contact</div>
+      {%- for e in s.emails %}<div><a href="mailto:{{ e.address }}">{{ e.address }}</a> <span class="v1-sub">{{ e.note }}</span></div>{% endfor %}
+    </div>
   </footer>
-
-<script type="module">
-  import { page, $, blocks } from "/app.js";
-
-  page("home.json", (d) => {
-    $("statement").textContent = d.statement;
-    $("visit-heading").textContent = d.visit.heading;
-    $("visit-blocks").innerHTML = blocks(d.visit.blocks);
-  });
-</script>
-</body>
-</html>
+</div>

@@ -1,98 +1,123 @@
+# Pages CMS configuration — https://pagescms.org/docs/configuration/
+
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
 content:
   - name: site
-    label: Site (shared)
+    label: Site content
     type: file
-    path: content/site.json
-    format: json
+    path: _data/site.yml
+    format: yaml
     fields:
-      - name: name
-        label: Restaurant name
-        type: string
-      - name: copyright
-        label: Copyright line
-        type: string
-      - name: nav
-        label: Main navigation
+      - { name: title, label: Site title, type: string, required: true }
+      - { name: description, label: Description (search engines), type: text }
+      - name: design
+        label: Design
+        description: Which design visitors see first.
+        type: select
+        default: v6
+        options:
+          values:
+            - { value: v6, label: v.6 Minimal (one tab at a time) }
+            - { value: v1, label: v.1 Colour bands (all sections open) }
+      - name: colour_tool
+        label: Show colour and design button
+        description: The floating button in the bottom corner. Turn off for launch.
+        type: boolean
+        default: true
+      - name: colors
+        label: Colours (v.6 Minimal)
+        type: object
+        fields:
+          - { name: background, label: Background, type: string, description: "Hex value, e.g. #faf8f4" }
+          - { name: text, label: Text, type: string, description: "Hex value, e.g. #1a1716" }
+      - { name: v1_bar_color, label: Footer colour (v.1), type: string, description: "Hex value, e.g. #000000" }
+      - { name: v1_paper_color, label: Top area colour (v.1), type: string, description: "Hex value, e.g. #EAE4DA" }
+      - { name: logo, label: Logo, type: image, description: Shown large on the home page and small in the top left on other tabs. }
+      - name: address
+        label: Address lines
+        description: Shown top right. Add a URL to make a line a link.
         type: object
         list: true
         fields:
-          - { name: label, label: Label, type: string }
-          - { name: href, label: Link, type: string }
-      - name: subnav
-        label: Secondary navigation
+          - { name: label, label: Text, type: string }
+          - { name: url, label: Link (optional), type: string }
+      - { name: instagram, label: Instagram URL, type: string }
+      - { name: language_label, label: Language label, type: string }
+      - { name: v1_intro, label: Intro text (v.1), type: text, description: Large text under the heading. }
+      - name: emails
+        label: Contact emails (v.1 footer)
         type: object
         list: true
         fields:
-          - { name: label, label: Label, type: string }
-          - { name: href, label: Link, type: string }
-      - name: footer
-        label: Footer
+          - { name: address, label: Email, type: string }
+          - { name: note, label: What it is for, type: string }
+      - name: hours
+        label: Opening hours
         type: object
+        list: true
         fields:
-          - { name: legal, label: Legal lines, type: string, list: true }
-          - name: links
-            label: Links
+          - { name: day, label: Day, type: string }
+          - { name: time, label: Time, type: string }
+      - name: sections
+        label: Tabs
+        description: Each entry is one tab in the menu, in order. The home page (logo and hours) is separate.
+        type: object
+        list: true
+        fields:
+          - { name: id, label: ID, type: string, required: true, description: "Used in the URL, e.g. food → #food. Lowercase, no spaces." }
+          - { name: nav, label: Menu label, type: string, required: true }
+          - { name: max_width, label: Max width, type: string, description: "Optional, e.g. 760px. Wider values fit more columns." }
+          - name: show_in
+            label: Show in
+            type: select
+            default: both
+            options:
+              values:
+                - { value: both, label: Both designs }
+                - { value: v6, label: v.6 Minimal only }
+                - { value: v1, label: v.1 Colour bands only }
+          - name: kind
+            label: Type
+            description: '"Opening hours and address" fills itself from the hours and address above.'
+            type: select
+            default: normal
+            options:
+              values:
+                - { value: normal, label: Normal }
+                - { value: visit, label: Opening hours and address }
+          - { name: v1_color, label: Band colour (v.1), type: string, description: "Hex value, e.g. #A8120F" }
+          - { name: v1_title, label: Band heading (v.1), type: string }
+          - { name: v1_cta_label, label: Link label (v.1), type: string }
+          - { name: v1_cta_url, label: Link URL (v.1), type: string }
+          - name: groups
+            label: Columns
+            description: Lists of items, shown side by side. Use for menus and contact details.
             type: object
             list: true
             fields:
-              - { name: label, label: Label, type: string }
-              - { name: href, label: Link, type: string }
-
-  - name: home
-    label: Page — Home
-    type: file
-    path: content/home.json
-    format: json
-    fields:
-      - name: statement
-        label: Opening statement
-        type: text
-      - name: visit
-        label: Visit
-        type: object
-        fields:
-          - { name: heading, label: Heading, type: string }
-          - name: blocks
-            label: Blocks
-            type: object
-            list: true
-            fields:
-              - { name: title, label: Title, type: string }
-              - { name: lines, label: Lines, type: string, list: true }
-
-  - name: menu
-    label: Page — Menu
-    type: file
-    path: content/menu.json
-    format: json
-    fields:
-      - name: title
-        label: Page title
-        type: string
-      - name: intro
-        label: Intro statement
-        type: text
-      - name: menu
-        label: Menu
-        type: object
-        fields:
-          - { name: heading, label: Heading, type: string }
-          - { name: note, label: Intro note, type: text }
-          - name: sections
-            label: Courses
-            type: object
-            list: true
-            fields:
-              - { name: title, label: Course title, type: string }
+              - { name: title, label: Heading (optional), type: string }
               - name: items
-                label: Dishes
+                label: Items
                 type: object
                 list: true
                 fields:
-                  - { name: name, label: Dish, type: string }
-      - name: wine
-        label: Wine
-        type: object
-        fields:
-          - { name: heading, label: Heading, type: string }
-          - { name: note, label: Text, type: text }
+                  - { name: name, label: Name, type: string }
+                  - { name: sub, label: Small text below (optional), type: string }
+                  - { name: href, label: Link (optional), type: string }
+          - name: events
+            label: Events
+            type: object
+            list: true
+            fields:
+              - { name: date, label: Date, type: string }
+              - { name: title, label: Title, type: string }
+              - { name: desc, label: Description, type: text }
+              - { name: time, label: Time, type: string }
+          - name: body
+            label: Text paragraphs
+            description: Shown under the content. One paragraph each.
+            type: text
+            list: true

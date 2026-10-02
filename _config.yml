@@ -1,0 +1,11 @@
+title: Dzidra
+lang: en
+
+# Set when deploying to a project page, e.g. baseurl: /dzidra
+baseurl: ""
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - .pages.yml
