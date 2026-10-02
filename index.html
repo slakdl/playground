@@ -11,9 +11,9 @@ layout: default
     </div>
     <div class="header-right">
       <nav aria-label="Main">
-        {%- for sec in s.sections %}{% unless sec.show_in == 'v1' %}
+        {%- for sec in s.sections %}
         <a href="#{{ sec.id }}" data-tab="{{ sec.id }}">{{ sec.nav }}</a>
-        {%- endunless %}{% endfor %}
+        {%- endfor %}
       </nav>
       <div class="meta">
         {%- for a in s.address %}
@@ -35,7 +35,7 @@ layout: default
       </div>
     </section>
 
-    {%- for sec in s.sections %}{% unless sec.show_in == 'v1' %}
+    {%- for sec in s.sections %}
     <section class="panel" data-panel="{{ sec.id }}">
       <h1>{{ sec.nav }}</h1>
       {%- if sec.groups.size > 0 %}
@@ -68,83 +68,6 @@ layout: default
       <p class="body">{{ p }}</p>
       {%- endfor %}
     </section>
-    {%- endunless %}{% endfor %}
+    {%- endfor %}
   </main>
-</div>
-
-<!-- v.1 Colour bands -->
-<div class="d1">
-  <div class="intro" style="background:var(--paper);color:var(--paper-fg)">
-    <header class="topline">
-      <nav>
-        {%- for sec in s.sections %}{% unless sec.show_in == 'v6' %}
-        <a href="#{{ sec.id }}" data-band-link="{{ sec.id }}">{{ sec.nav }}</a>
-        {%- endunless %}{% endfor %}
-      </nav>
-      {%- if s.language_label %}<div class="lang">{{ s.language_label }}</div>{% endif %}
-    </header>
-    <h1><a href="#home" data-home><img src="{{ s.logo | relative_url }}" alt="{{ s.title }}"></a></h1>
-    <div class="intro-fold"><div class="intro-clip"><div class="intro-row">
-      {%- if s.v1_intro %}<p>{{ s.v1_intro }}</p>{% endif %}
-      <div class="hours">
-        {%- for h in s.hours %}
-        <span>{{ h.day }}</span><span>{{ h.time }}</span>
-        {%- endfor %}
-      </div>
-    </div></div></div>
-  </div>
-
-  <main>
-    {%- for sec in s.sections %}{% unless sec.show_in == 'v6' %}
-    <section class="band" id="band-{{ sec.id }}" data-band="{{ sec.id }}" style="background:var(--band-{{ sec.id }});color:var(--band-{{ sec.id }}-fg)">
-      <div class="band-head" data-band-toggle role="button" tabindex="0" aria-expanded="false">
-        <h2>{{ sec.v1_title | default: sec.nav }}</h2>
-      </div>
-      <div class="band-body"><div class="band-clip"><div class="band-inner">
-        {%- if sec.groups.size > 0 %}
-        <div class="v1-groups">
-          {%- for g in sec.groups %}
-          <div class="v1-group">
-            {%- if g.title %}<div class="v1-group-title">{{ g.title }}</div>{% endif %}
-            {%- for it in g.items %}
-            <div class="v1-item">
-              {%- if it.href %}<a class="link" href="{{ it.href }}">{{ it.name }}</a>{% else %}<span>{{ it.name }}</span>{% endif %}
-              {%- if it.sub %}<div class="v1-sub">{{ it.sub }}</div>{% endif %}
-            </div>
-            {%- endfor %}
-          </div>
-          {%- endfor %}
-        </div>
-        {%- endif %}
-        {%- if sec.events.size > 0 %}
-        <div class="v1-events">
-          {%- for ev in sec.events %}
-          <div class="v1-event"><span>{{ ev.date }}</span><span>{{ ev.title }}<span class="v1-sub">{{ ev.desc }}</span></span><span class="v1-time">{{ ev.time }}</span></div>
-          {%- endfor %}
-        </div>
-        {%- endif %}
-        <div class="band-foot">
-          <div class="band-text">{% for p in sec.body %}<p>{{ p }}</p>{% endfor %}</div>
-          {%- if sec.v1_cta_label %}<a class="cta" href="{{ sec.v1_cta_url }}" target="_blank" rel="noopener">{{ sec.v1_cta_label }} →</a>{% endif %}
-        </div>
-      </div></div></div>
-    </section>
-    {%- endunless %}{% endfor %}
-  </main>
-
-  <footer class="bar bottom">
-    <div class="foot-col">
-      <div class="v1-group-title">opening hours</div>
-      {%- for h in s.hours %}<div>{{ h.day }} {{ h.time }}</div>{% endfor %}
-    </div>
-    <div class="foot-col">
-      <div class="v1-group-title">address</div>
-      <a href="{{ s.address[0].url }}" target="_blank" rel="noopener">{% for x in s.address %}{{ x.label }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</a>
-      {%- if s.instagram %}<a href="{{ s.instagram }}" target="_blank" rel="noopener">Instagram</a>{% endif %}
-    </div>
-    <div class="foot-col">
-      <div class="v1-group-title">contact</div>
-      {%- for e in s.emails %}<div><a href="mailto:{{ e.address }}">{{ e.address }}</a> <span class="v1-sub">{{ e.note }}</span></div>{% endfor %}
-    </div>
-  </footer>
 </div>

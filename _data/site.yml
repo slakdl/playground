@@ -3,20 +3,10 @@
 title: Dzidra
 description: Neighbourhood coffee shop and evening restaurant on Baldersgade, Copenhagen.
 
-# Which design loads first: v6 (minimal, one tab at a time) or v1 (colour bands that open and close)
-design: v6
-
-# Show the floating colour / design control button (a design tool, not part of the site)
-colour_tool: true
-
-# v6 colours
+# Colours
 colors:
   background: "#faf8f4"
   text: "#1a1716"
-
-# v1 colours: top/intro area, footer. Each tab has its own band colour below.
-v1_bar_color: "#1D1D1B"
-v1_paper_color: "#EAE4DA"
 
 logo: /assets/uploads/dzidra-logo.png
 
@@ -28,14 +18,6 @@ address:
 instagram: https://www.instagram.com/dzidra_dzidra_dzidra/?hl=da
 
 language_label: DA / EN
-
-# v.1 intro and footer
-v1_intro: Dzidra is a neighbourhood coffee shop and evening restaurant on Baldersgade, built on organic food, good coffee and an open door.
-
-emails:
-  - { address: info@dzidra.dk, note: General questions }
-  - { address: job@dzidra.dk, note: Job applications }
-  - { address: event@dzidra.dk, note: Events and catering }
 
 hours:
   - { day: mandag, time: 8–17 }
@@ -50,8 +32,6 @@ hours:
 sections:
   - id: food
     nav: Food
-    v1_color: "#C63F3E"
-    v1_title: Food
     max_width: 760px
     groups:
       - items:
@@ -71,8 +51,6 @@ sections:
 
   - id: drinks
     nav: Drinks
-    v1_color: "#EAA7C7"
-    v1_title: Drinks
     max_width: 1000px
     groups:
       - title: coffee from la cabra
@@ -111,20 +89,12 @@ sections:
 
   - id: about
     nav: About us
-    v1_color: "#808BC5"
-    v1_title: About us
-    v1_cta_label: Instagram
-    v1_cta_url: https://www.instagram.com/dzidra_dzidra_dzidra/?hl=da
     body:
       - Dzidra is a neighborhood coffee shop, founded in 2020 by Andreas Skou Albertsen and Isabella Kristensen. We started out with a wish to create a space, where local voices could be amplified and everyone who entered our place, would feel welcomed and seen. The café concept launched in June 2021, and has been evolving ever since. Through different pop-up concepts, poetry readings and art openings, our daily life focuses on bringing heartfelt, homemade food and drinks, to people of the neighborhood.
       - While trying to challenge the nordic pallet with a worldly approach to food, we focus on using only organic farmed vegetables, from local farmers. We offer a wide selection of teas from IO Tehus and coffees and chocolate from La Cabra, natural wines mainly produced by femmes and local organic beer from Herslev Bryghus. And much much more. 4 days a week we turn our daily café into a vibrant and cozy evening restaurant, and it is also possible to rent Dzidra, for a celebration of big mile stones or intimate dinner celebrations.
 
   - id: events
     nav: Events
-    v1_color: "#EAC119"
-    v1_title: Events
-    v1_cta_label: event@dzidra.dk
-    v1_cta_url: mailto:event@dzidra.dk
     events:
       - { date: Fre 10.10, title: Poetry reading, desc: An evening of new Danish and English poetry. Free entry., time: 19–21 }
       - { date: Lør 18.10, title: "Pop-up: Georgian kitchen", desc: Guest chef takes over the kitchen for one night. Booking required., time: 17–22 }
@@ -136,11 +106,6 @@ sections:
 
   - id: contact
     nav: Contact
-    show_in: v6
-    v1_color: "#EE877A"
-    v1_title: Contact us
-    v1_cta_label: info@dzidra.dk
-    v1_cta_url: mailto:info@dzidra.dk
     max_width: 760px
     groups:
       - title: info@dzidra.dk
